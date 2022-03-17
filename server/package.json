@@ -14,8 +14,6 @@
     "test2": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --colors",
     "webpack:dev": "cross-env ENV=development webpack --mode=development --watch",
     "webpack:build": "cross-env ENV=production webpack --mode=production",
-    "postwebpack:build": "npm run pkg",
-    "deploy": "scp dist/app light:~/apps/short-link-server",
     "pkg": "pkg dist/app.js -o dist/app  -t node16-linux-x64 --options  max_old_space_size=4096",
     "eslint:fix": "eslint --fix --ext .ts src/"
   },

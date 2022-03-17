@@ -1,9 +1,9 @@
 name: 脚本名称
-# 触发脚本的条件，develop分支push代码的时候
+# 触发脚本的条件，deploy分支push代码的时候
 on:
   push:
     branches:
-      - main
+      - deploy
 # 要执行的任务
 jobs:
   # 任务名称
@@ -32,19 +32,30 @@ jobs:
       # 打包
       - name: 打包
         run: cd server && npm run webpack:build
-        
-      - name: pkg
-        run: cd server && npm run pkg
-      
-      # 上传打包文件到远程服务器
-      - name: 上传文件到远程服务器
-        uses: zhenyuWang/Upload-File-Action@v1.0.1
+
+      # - name: pkg
+      #   run: cd server && npm run pkg
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
         with:
-          username: "root"
-          server: "light.xiongxiao.me"
-          port: "22"
-          ssh_private_key: ${{ secrets.xiongxiao}}
-          # 要上传文件所在目录
-          local_path: "./server/dist/app"
-          # 远程服务器目标路径
-          target_path: "~/apps/short-link-server"
+          host: '124.222.140.199'
+          username: 'root'
+          key: ${{secrets.xiongxiao}}
+          source: './server/dist/*'
+          target: '/root/apps/short-link-server'
+          strip_components: 2
+      - name: executing remote ssh commands
+        # 使用appleboy/ssh-action@master来执行命令
+        uses: appleboy/ssh-action@master
+        with:
+          username: 'root'
+          host: '124.222.140.199'
+          key: ${{secrets.xiongxiao}}
+          # linux需要安装apt install nodejs
+          script: |
+            echo "Hello Deploy "
+            whereis node
+            whereis npm
+            whoami
+            sh /root/apps/short-link-server/reload.sh
+            exit
