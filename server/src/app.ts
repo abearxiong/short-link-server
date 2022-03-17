@@ -68,19 +68,19 @@ const template = (url: string, { note }: TemplateOptions) => `
 
         <p>短链接跳转中。。。</p>
       </div>
-      <div class="flex justify-center items-center text-xl font-bold px-4 py-3">
-        <span>本页面将在<span id="Time">3</span>秒之后跳转到新页面！</span>
+      <div class="flex justify-center items-center px-4 py-3">
+        <span class="text-xl font-bold"
+          >本页面将在<span id="Time">3</span>秒之后跳转到新页面！<u>
+            <a id="cancel" class="text-xs">取消跳转</a></u
+          ></span
+        >
       </div>
-      <!-- <div class="font-sans flex justify-center" id="link-url">${url}</div> -->
-      <div class="font-sans flex justify-center break-all px-8" id="link-url">
-        https://abearxiong.notion.site/abearxiong/2021-424837cba4f24d2ba03ad5947144f80c
-      </div>
-      <div class="font-sans flex justify-center">${note || ''}</div>
+      <div class="font-sans flex justify-center text-center" id="link-url">${url}</div>
+      <div class="font-sans flex justify-center text-center">${ note || ''}</div>
       <div class="flex justify-center items-center text-xs px-4 py-3">
         <span>
           如未成功跳转，请
-          <a class="font-bold" id="toPage"> 点击这里 </a>
-          <a id="cancel">取消</a>
+          <a class="font-bold" id="toPage">点击这里</a>跳转
         </span>
       </div>
     </div>
@@ -91,6 +91,7 @@ const template = (url: string, { note }: TemplateOptions) => `
       init();
       document.querySelector('#cancel').addEventListener('click', cancel);
       document.querySelector('#toPage').addEventListener('click', toPage);
+      document.querySelector('#link-url').addEventListener('click', toPage);
     };
     let timer = null;
     function init() {
@@ -117,7 +118,7 @@ const template = (url: string, { note }: TemplateOptions) => `
         let r = document
           .querySelector('#main')
           .innerHTML.replaceAll('${url}', rep);
-        r = r.replace("${note || ''}", '');
+        r = r.replace("${ note || ''}", '');
         document.querySelector('#main').innerHTML = r;
       }
     }

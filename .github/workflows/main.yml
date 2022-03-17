@@ -43,7 +43,7 @@ jobs:
           username: "root"
           server: "light.xiongxiao.me"
           port: "22"
-          ssh_private_key: ${{ secrets.私钥}}
+          ssh_private_key: ${{ secrets.xiongxiao}}
           # 要上传文件所在目录
           local_path: "./server/dist/app"
           # 远程服务器目标路径
