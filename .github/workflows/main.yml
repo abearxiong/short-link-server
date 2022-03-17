@@ -23,18 +23,18 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.14.1
-      - name: 进入server服务
-        run: cd server
+      # - name: 进入server服务
+      #   run: cd server
       # 安装依赖
       - name: 安装依赖
-        run: npm install
+        run: cd server && npm install
 
       # 打包
       - name: 打包
-        run: npm run webpack:build
+        run: cd server && npm run webpack:build
         
       - name: pkg
-        run: npm run pkg
+        run: cd server && npm run pkg
       
       # 上传打包文件到远程服务器
       - name: 上传文件到远程服务器
