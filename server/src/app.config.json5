@@ -1,0 +1,6 @@
+{
+  links: [
+    { link: '1', value: 'https://www.baidu.com' }, //demo
+    { link: '2021sum', value: 'https://abearxiong.notion.site/2021-424837cba4f24d2ba03ad5947144f80c', note: '当前的notion笔记需要外网' }, // 网络 2021年技术总结短链接
+  ],
+}
